@@ -11,14 +11,16 @@ public class Homework1 {
                         "Good afternoon", "Good night", "welcome");
         System.out.println("before change: " + Arrays.toString(strArr.getArray()));
 
-        // First method.
+        // changeElements() check.
         strArr.changeElements(2, 4);
         System.out.println("after change: " + Arrays.toString(strArr.getArray()));
         strArr.changeElements(10, 12);
 
-        // Second method
+        // reorganizeToArrayList() check;
         ArrayList<String> list = new ArrayList<>();
         list = strArr.reorganizeToArrayList();
-        System.out.println("First element of list is: " + list.get(0));
+        System.out.println("fifth element of list is: " + list.get(5));
+
+        // Check for Fruits and Boxes.
     }
 }

@@ -24,11 +24,17 @@ public class Box<T extends Fruit> {
 
     public void shiftFruits(Box<T> anotherBox) {
         for (int i = 0; i < this.fruits.size(); i++) {
-            anotherBox.fruits.add(this.fruits.get(i));
+            anotherBox.addFruit(this.fruits.get(i));
         }
     }
 
-    public void addFruit() {
+    /**
+     * Почему мы создаём этот метод? Не проще ли написать в shiftFruits что-то типа
+     * anotherBox.fruits.add(this.fruits.get(i));
+     * */
 
+    public void addFruit(T fruit) {
+        this.fruits.add(fruit);
     }
+
 }
