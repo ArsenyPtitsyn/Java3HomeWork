@@ -4,15 +4,14 @@ import java.util.ArrayList;
 
 public class Box<T extends Fruit> {
 
-    private ArrayList<T> fruits;
+    private ArrayList<T> fruits = new ArrayList<>();
 
-    public Box(ArrayList<T> fruits) {
-        this.fruits = fruits;
+    public Box() {
     }
 
     public float getWeight() {
         float weight = 0;
-        for (T fruit: fruits) {
+        for (T fruit : fruits) {
             weight += fruit.getWeight();
         }
         return weight;
@@ -28,13 +27,13 @@ public class Box<T extends Fruit> {
         }
     }
 
-    /**
-     * Почему мы создаём этот метод? Не проще ли написать в shiftFruits что-то типа
-     * anotherBox.fruits.add(this.fruits.get(i));
-     * */
-
     public void addFruit(T fruit) {
         this.fruits.add(fruit);
     }
 
+    public void fillBox(T fruit, int count) {
+        for (int i = 0; i < count; i++) {
+            this.addFruit(fruit);
+        }
+    }
 }

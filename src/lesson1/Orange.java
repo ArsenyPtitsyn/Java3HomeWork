@@ -2,7 +2,7 @@ package lesson1;
 
 public class Orange extends Fruit{
 
-    public Orange(String type, float weight) {
+    public Orange() {
         super("Orange", 1.5f);
     }
 }
