@@ -22,8 +22,8 @@ public class Box<T extends Fruit> {
     }
 
     public void shiftFruits(Box<T> anotherBox) {
-        for (int i = 0; i < this.fruits.size(); i++) {
-            anotherBox.addFruit(this.fruits.get(i));
+        for (int i = this.fruits.size() - 1; i >= 0 ; i--) {
+            anotherBox.addFruit(this.getFruit(i));
         }
     }
 
@@ -35,5 +35,11 @@ public class Box<T extends Fruit> {
         for (int i = 0; i < count; i++) {
             this.addFruit(fruit);
         }
+    }
+
+    public T getFruit(int index) {
+        T fruit = fruits.get(index);
+        fruits.remove(index);
+        return fruit;
     }
 }

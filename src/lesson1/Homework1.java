@@ -36,6 +36,18 @@ public class Homework1 {
         Box<Orange> orangeBox2 = new Box<>();
         orangeBox2.fillBox(new Orange(), 5);
 
+        // Check method getWeight().
+        System.out.println("Weight of appleBox1 is: " + appleBox1.getWeight());
 
+        // Check method compare(...).
+        System.out.println("Are the weights of appleBox1 and orangeBox1 the same? " +
+                appleBox1.compare(orangeBox1));
+        System.out.println("Are the weights of appleBox2 and orangeBox2 the same? " +
+                appleBox2.compare(orangeBox2));
+
+        // Check method shiftFruits(...).
+        appleBox1.shiftFruits(appleBox2);
+        System.out.printf("After shifting appleBox1 in appleBox2, the weights of this boxes are " +
+                "%.1f and %.1f", appleBox1.getWeight(), appleBox2.getWeight());
     }
 }
