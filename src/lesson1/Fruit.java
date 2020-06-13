@@ -16,4 +16,8 @@ public abstract class Fruit {
     public float getWeight() {
         return weight;
     }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
