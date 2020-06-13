@@ -1,10 +1,10 @@
 package lesson1;
 
-public class GenericArrayElementsChanger<T> {
+public class GenericArrayChanger<T> {
 
     private T[] array;
 
-    public GenericArrayElementsChanger(T... array) {
+    public GenericArrayChanger(T... array) {
         this.array = array;
     }
 
