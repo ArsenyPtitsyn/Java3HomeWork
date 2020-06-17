@@ -43,7 +43,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private SocketThread socketThread;
     private static final String WINDOW_TITLE = "Chat";
 
-
+    private RegistrationWindow registrationWindow;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -107,7 +107,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         } else if (src == btnDisconnect) {
             socketThread.close();
         } else if (src == btnRegistration) {
-
+            registrationWindow = new RegistrationWindow(this);
+            registrationWindow.setVisible(true);
         } else {
             throw new RuntimeException("Unknown source: " + src);
         }
