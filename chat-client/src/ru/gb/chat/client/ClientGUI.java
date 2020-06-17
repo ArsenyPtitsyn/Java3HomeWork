@@ -27,6 +27,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private final JCheckBox cbAlwaysOnTop = new JCheckBox("Always on top");
     private final JTextField tfLogin = new JTextField("ivan");
     private final JPasswordField tfPassword = new JPasswordField("1234");
+    private final JPanel panelRightBottom = new JPanel(new GridLayout(1, 2));
+    private final JButton btnRegistration = new JButton("<html><b>Registration</b></html>");
     private final JButton btnLogin = new JButton("Login");
 
     private final JPanel panelBottom = new JPanel(new BorderLayout());
@@ -40,6 +42,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     private SocketThread socketThread;
     private static final String WINDOW_TITLE = "Chat";
+
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -65,13 +69,17 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         tfMessage.addActionListener(this);
         btnLogin.addActionListener(this);
         btnDisconnect.addActionListener(this);
+        btnRegistration.addActionListener(this);
 
         panelTop.add(tfIPAddress);
         panelTop.add(tfPort);
         panelTop.add(cbAlwaysOnTop);
         panelTop.add(tfLogin);
         panelTop.add(tfPassword);
-        panelTop.add(btnLogin);
+        panelTop.add(panelRightBottom);
+
+        panelRightBottom.add(btnLogin);
+        panelRightBottom.add(btnRegistration);
 
         panelBottom.add(btnDisconnect, BorderLayout.WEST);
         panelBottom.add(tfMessage, BorderLayout.CENTER);
@@ -98,6 +106,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
             connect();
         } else if (src == btnDisconnect) {
             socketThread.close();
+        } else if (src == btnRegistration) {
+
         } else {
             throw new RuntimeException("Unknown source: " + src);
         }
