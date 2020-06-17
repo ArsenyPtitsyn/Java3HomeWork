@@ -53,9 +53,9 @@ public class SqlClient {
         return null;
     }
 
-    synchronized static String getNickname() {
+    synchronized static String getNickname(int id) {
         try {
-            ResultSet rs = statement.executeQuery("SELECT nickname FROM users");
+            ResultSet rs = statement.executeQuery(String.format("SELECT nickname FROM users WHERE id = '%d", id));
             return rs.getString("nickname");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -63,7 +63,7 @@ public class SqlClient {
         return null;
     }
 
-    synchronized static String getLogin(long id) {
+    synchronized static String getLogin(int id) {
         try {
             ResultSet rs = statement.executeQuery(String.format("SELECT login FROM users WHERE id = '%d'",
                 id));

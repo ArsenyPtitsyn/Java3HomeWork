@@ -161,7 +161,10 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                     return;
                 } else {
                     for (long i = 0; i < SqlClient.getSize(); i++) {
-                        if (login.equals())
+                        if (login.equals(SqlClient.getLogin(i)) ||
+                                nickname.equals(SqlClient.getNickname(i))) {
+                            newClient.enterEnotherLoginOrPassword();
+                        }
                     }
                 }
         }
