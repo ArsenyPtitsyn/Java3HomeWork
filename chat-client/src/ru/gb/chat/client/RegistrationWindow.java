@@ -2,8 +2,10 @@ package ru.gb.chat.client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class RegistrationWindow extends JFrame {
+public class RegistrationWindow extends JFrame implements ActionListener {
 
     private static final int WIDTH = 280;
     private static final int HEIGHT = 250;
@@ -37,13 +39,7 @@ public class RegistrationWindow extends JFrame {
         setSize(WIDTH, HEIGHT);
         setResizable(false);
         setTitle("Registration in chat");
-
-        add(panelMain);
-
-        panelMain.add(panelLogin);
-        panelMain.add(panelPassword);
-        panelMain.add(panelNick);
-        panelMain.add(panelSend);
+        btnSend.addActionListener(this);
 
         panelLogin.add(labelLogin);
         panelLogin.add(tfLogin);
@@ -55,5 +51,26 @@ public class RegistrationWindow extends JFrame {
         panelNick.add(tfNickname);
 
         panelSend.add(btnSend);
+
+        panelMain.add(panelLogin);
+        panelMain.add(panelPassword);
+        panelMain.add(panelNick);
+        panelMain.add(panelSend);
+
+        add(panelMain);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+        if (src == btnSend) {
+            sendDataOnServer();
+        } else {
+            throw new RuntimeException("Unknown source: " + src);
+        }
+    }
+
+    private void sendDataOnServer() {
+        
     }
 }
