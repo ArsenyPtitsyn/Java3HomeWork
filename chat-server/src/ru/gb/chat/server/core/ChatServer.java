@@ -124,27 +124,47 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
 
     private void handleNonAuthMessage(ClientThread newClient, String msg) {
         String[] arr = msg.split(Library.DELIMITER);
-        if (arr.length != 3 || !arr[0].equals(Library.AUTH_REQUEST)) {
-            newClient.msgFormatError(msg);
-            return;
+        String msgType = arr[0];
+        switch (msgType) {
+            case Library.AUTH_REQUEST:
+                if (arr.length != 3) {
+                    newClient.msgFormatError(msg);
+                    return;
+                }
+                String login = arr[1];
+                String password = arr[2];
+                String nickname = SqlClient.getNickname(login, password);
+                if (nickname == null) {
+                    newClient.authFail();
+                    return;
+                } else {
+                    ClientThread oldClient = findClientByNickname(nickname);
+                    newClient.authAccept(nickname);
+                    if (oldClient == null) {
+                        sendToAllAuthorizedClients(Library.getTypeBroadcast("Server", nickname + " connected"));
+                    } else {
+                        oldClient.reconnect();
+                        clients.remove(oldClient);
+                    }
+                }
+                sendToAllAuthorizedClients(Library.getUserList(getUsers()));
+            case Library.REG_REQUEST:
+                if (arr.length != 4) {
+                    newClient.msgFormatError(msg);
+                    return;
+                }
+                login = arr[1];
+                password = arr[2];
+                nickname = arr[3];
+                if (login == null || password == null || nickname == null) {
+                    newClient.askForFillingAllFields();
+                    return;
+                } else {
+                    for (long i = 0; i < SqlClient.getSize(); i++) {
+                        if (login.equals())
+                    }
+                }
         }
-        String login = arr[1];
-        String password = arr[2];
-        String nickname = SqlClient.getNickname(login, password);
-        if (nickname == null) {
-            newClient.authFail();
-            return;
-        } else {
-            ClientThread oldClient = findClientByNickname(nickname);
-            newClient.authAccept(nickname);
-            if (oldClient == null) {
-                sendToAllAuthorizedClients(Library.getTypeBroadcast("Server", nickname + " connected"));
-            } else {
-                oldClient.reconnect();
-                clients.remove(oldClient);
-            }
-        }
-        sendToAllAuthorizedClients(Library.getUserList(getUsers()));
     }
 
     private void handleAuthMessage(ClientThread client, String msg) {

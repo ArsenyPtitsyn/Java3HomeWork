@@ -48,4 +48,8 @@ public class ClientThread extends SocketThread {
         sendMessage(Library.getMsgFormatError(msg));
         close();
     }
+
+    public void askForFillingAllFields() {
+        sendMessage(Library.getRegDataIncomplete());
+    }
 }

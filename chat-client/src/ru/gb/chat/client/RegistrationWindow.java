@@ -71,6 +71,6 @@ public class RegistrationWindow extends JFrame implements ActionListener {
     }
 
     private void sendDataOnServer() {
-        
+        clientGUI.connect();
     }
 }

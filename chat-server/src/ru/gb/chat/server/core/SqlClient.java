@@ -1,5 +1,7 @@
 package ru.gb.chat.server.core;
 
+import org.sqlite.SQLiteDataSource;
+
 import java.sql.*;
 
 public class SqlClient {
@@ -25,6 +27,18 @@ public class SqlClient {
         }
     }
 
+    synchronized static long getSize() {
+        ResultSet rs = null;
+        long count = 0;
+        try {
+            rs = statement.executeQuery("SELECT login FROM users");
+            count = rs.getFetchSize();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return count;
+    }
+
     synchronized static String getNickname(String login, String password) {
         try {
             ResultSet rs = statement.executeQuery(
@@ -35,6 +49,27 @@ public class SqlClient {
             }
         } catch (SQLException throwables) {
             throw new RuntimeException(throwables);
+        }
+        return null;
+    }
+
+    synchronized static String getNickname() {
+        try {
+            ResultSet rs = statement.executeQuery("SELECT nickname FROM users");
+            return rs.getString("nickname");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    synchronized static String getLogin(long id) {
+        try {
+            ResultSet rs = statement.executeQuery(String.format("SELECT login FROM users WHERE id = '%d'",
+                id));
+            return rs.getString("login");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return null;
     }

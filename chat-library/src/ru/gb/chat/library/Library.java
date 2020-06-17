@@ -1,16 +1,20 @@
 package ru.gb.chat.library;
 
 public class Library {
-    /*
+    /**
+     * /reg_request±login±password±nickname
      * /auth_request±login±password
      * /auth_accept±nickname
-     * /auth_error
+     * /auth_denied
      * /broadcast±msg
      * /msg_format_error
      * /user_list±user1±user2±user3
+     * /reg_incomplete
      * */
 
     public static final String DELIMITER = "±";
+    public static final String REG_REQUEST = "/reg_request";
+    public static final String REG_INCOMPLETE = "/reg_incomplete";
     public static final String AUTH_REQUEST = "/auth_request";
     public static final String AUTH_ACCEPT = "/auth_accept";
     public static final String AUTH_DENIED = "/auth_denied";
@@ -21,6 +25,10 @@ public class Library {
 
     public static String getTypeBcastClient(String msg) {
         return CLIENT_MSG_BROADCAST + DELIMITER + msg;
+    }
+
+    public static String getRegRequest(String login, String password, String nickname) {
+        return REG_REQUEST + DELIMITER + login + DELIMITER + password + DELIMITER + nickname;
     }
 
     public static String getAuthRequest(String login, String password) {
@@ -46,5 +54,9 @@ public class Library {
 
     public static String getUserList(String users) {
         return USER_LIST + DELIMITER + users;
+    }
+
+    public static String getRegDataIncomplete() {
+        return REG_INCOMPLETE + DELIMITER + "Enter all fields please";
     }
 }
