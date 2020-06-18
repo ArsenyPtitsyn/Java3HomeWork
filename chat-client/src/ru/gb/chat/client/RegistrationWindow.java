@@ -11,22 +11,22 @@ public class RegistrationWindow extends JFrame implements ActionListener {
     private static final int HEIGHT = 250;
     ClientGUI clientGUI;
 
-    private final JPanel panelMain = new JPanel(new GridLayout(4, 1));
+    final JPanel panelMain = new JPanel(new GridLayout(4, 1));
 
-    private final JPanel panelLogin = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    private final JLabel labelLogin = new JLabel("Enter your login: ");
-    private final JTextField tfLogin = new JTextField(10);
+    final JPanel panelLogin = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    final JLabel labelLogin = new JLabel("Enter your login: ");
+    final JTextField tfLogin = new JTextField(10);
 
-    private final JPanel panelPassword = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    private final JLabel labelPassword = new JLabel("Enter your password: ");
-    private final JPasswordField tfPassword = new JPasswordField(12);
+    final JPanel panelPassword = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    final JLabel labelPassword = new JLabel("Enter your password: ");
+    final JPasswordField tfPassword = new JPasswordField(12);
 
-    private final JPanel panelNick = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    private final JLabel labelNick = new JLabel("Enter your password: ");
-    private final JTextField tfNickname = new JTextField(10);
+    final JPanel panelNick = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    final JLabel labelNick = new JLabel("Enter your password: ");
+    final JTextField tfNickname = new JTextField(10);
 
-    private final JPanel panelSend = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    private final JButton btnSend = new JButton("Send");
+    final JPanel panelSend = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    final JButton btnSend = new JButton("Send");
 
     RegistrationWindow(ClientGUI clientGUI) {
         this.clientGUI = clientGUI;

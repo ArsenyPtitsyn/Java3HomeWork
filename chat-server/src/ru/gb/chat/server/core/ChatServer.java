@@ -148,25 +148,25 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                     }
                 }
                 sendToAllAuthorizedClients(Library.getUserList(getUsers()));
-            case Library.REG_REQUEST:
-                if (arr.length != 4) {
-                    newClient.msgFormatError(msg);
-                    return;
-                }
-                login = arr[1];
-                password = arr[2];
-                nickname = arr[3];
-                if (login == null || password == null || nickname == null) {
-                    newClient.askForFillingAllFields();
-                    return;
-                } else {
-                    for (long i = 0; i < SqlClient.getSize(); i++) {
-                        if (login.equals(SqlClient.getLogin(i)) ||
-                                nickname.equals(SqlClient.getNickname(i))) {
-                            newClient.enterEnotherLoginOrPassword();
-                        }
-                    }
-                }
+//            case Library.REG_REQUEST:
+//                if (arr.length != 4) {
+//                    newClient.msgFormatError(msg);
+//                    return;
+//                }
+//                login = arr[1];
+//                password = arr[2];
+//                nickname = arr[3];
+//                if (login == null || password == null || nickname == null) {
+//                    newClient.regFailByInfoLack();
+//                    return;
+//                } else {
+//                    for (int i = 0; i < SqlClient.getSize(); i++) {
+//                        if (login.equals(SqlClient.getLogin(i)) ||
+//                                nickname.equals(SqlClient.getNickname(i))) {
+//                            newClient.regFailByNotUniqueLoginOrNickname();
+//                        }
+//                    }
+//                }
         }
     }
 

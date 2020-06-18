@@ -49,7 +49,13 @@ public class ClientThread extends SocketThread {
         close();
     }
 
-    public void askForFillingAllFields() {
-        sendMessage(Library.getRegDataIncomplete());
+    void regFailByInfoLack() {
+        sendMessage(Library.getRegDeniedByInfoLack());
+        close();
+    }
+
+    void regFailByNotUniqueLoginOrNickname() {
+        sendMessage(Library.getRegDeniedByNotUniqueLoginOrNickname());
+        close();
     }
 }

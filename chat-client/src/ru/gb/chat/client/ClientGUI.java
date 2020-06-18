@@ -25,8 +25,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private final JTextField tfIPAddress = new JTextField("127.0.0.1");
     private final JTextField tfPort = new JTextField("8189");
     private final JCheckBox cbAlwaysOnTop = new JCheckBox("Always on top");
-    private final JTextField tfLogin = new JTextField("ivan");
-    private final JPasswordField tfPassword = new JPasswordField("1234");
+    private final JTextField tfLogin = new JTextField();
+    private final JPasswordField tfPassword = new JPasswordField();
     private final JPanel panelRightBottom = new JPanel(new GridLayout(1, 2));
     private final JButton btnRegistration = new JButton("<html><b>Registration</b></html>");
     private final JButton btnLogin = new JButton("Login");
@@ -195,9 +195,9 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         putLog("Ready");
         panelBottom.setVisible(true);
         panelTop.setVisible(false);
-        String login = tfLogin.getText();
-        String password = new String(tfPassword.getPassword());
-        thread.sendMessage(Library.getAuthRequest(login, password));
+        String loginAuth = tfLogin.getText();
+        String passwordAuth = new String(tfPassword.getPassword());
+        thread.sendMessage(Library.getAuthRequest(loginAuth, passwordAuth));
     }
 
     @Override

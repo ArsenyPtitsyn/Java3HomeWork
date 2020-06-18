@@ -15,6 +15,7 @@ public class Library {
     public static final String DELIMITER = "±";
     public static final String REG_REQUEST = "/reg_request";
     public static final String REG_INCOMPLETE = "/reg_incomplete";
+    public static final String REG_NOT_UNIQUE = "/reg_not_unique";
     public static final String AUTH_REQUEST = "/auth_request";
     public static final String AUTH_ACCEPT = "/auth_accept";
     public static final String AUTH_DENIED = "/auth_denied";
@@ -22,6 +23,7 @@ public class Library {
     public static final String TYPE_BROADCAST = "/bcast"; // то есть сообщение, которое будет посылаться всем
     public static final String USER_LIST = "/user_list";
     public static final String CLIENT_MSG_BROADCAST = "/client-bcast";
+
 
     public static String getTypeBcastClient(String msg) {
         return CLIENT_MSG_BROADCAST + DELIMITER + msg;
@@ -56,7 +58,11 @@ public class Library {
         return USER_LIST + DELIMITER + users;
     }
 
-    public static String getRegDataIncomplete() {
+    public static String getRegDeniedByInfoLack() {
         return REG_INCOMPLETE + DELIMITER + "Enter all fields please";
+    }
+
+    public static String getRegDeniedByNotUniqueLoginOrNickname() {
+        return REG_NOT_UNIQUE + DELIMITER + "Please enter a different password or nickname";
     }
 }
