@@ -58,4 +58,10 @@ public class ClientThread extends SocketThread {
         sendMessage(Library.getRegDeniedByNotUniqueLoginOrNickname());
         close();
     }
+
+    void regAccept(String login, String password, String nickname) {
+        isAuthorized = true;
+        this.nickname = nickname;
+        sendMessage(Library.getRegAccept(login, password, nickname));
+    }
 }

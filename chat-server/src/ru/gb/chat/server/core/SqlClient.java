@@ -27,11 +27,10 @@ public class SqlClient {
         }
     }
 
-    synchronized static long getSize() {
-        ResultSet rs = null;
-        long count = 0;
+    synchronized static int getSize() {
+        int count = 0;
         try {
-            rs = statement.executeQuery("SELECT login FROM users");
+            ResultSet rs = statement.executeQuery("SELECT login FROM users");
             count = rs.getFetchSize();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -72,5 +71,21 @@ public class SqlClient {
             throwables.printStackTrace();
         }
         return null;
+    }
+
+    synchronized static void addUser(String login, String password, String nickname) {
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO users " +
+                    "(login, password, nickname) VALUES (?, ?, ?)");
+            ps.setString(1, login);
+            ps.setString(2, password);
+            ps.setString(3, nickname);
+            ps.executeUpdate();
+            connection.commit();
+            ps.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

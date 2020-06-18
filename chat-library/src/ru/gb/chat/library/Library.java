@@ -16,6 +16,7 @@ public class Library {
     public static final String REG_REQUEST = "/reg_request";
     public static final String REG_INCOMPLETE = "/reg_incomplete";
     public static final String REG_NOT_UNIQUE = "/reg_not_unique";
+    public static final String REG_ACCEPT = "/reg_accept";
     public static final String AUTH_REQUEST = "/auth_request";
     public static final String AUTH_ACCEPT = "/auth_accept";
     public static final String AUTH_DENIED = "/auth_denied";
@@ -31,6 +32,18 @@ public class Library {
 
     public static String getRegRequest(String login, String password, String nickname) {
         return REG_REQUEST + DELIMITER + login + DELIMITER + password + DELIMITER + nickname;
+    }
+
+    public static String getRegDeniedByInfoLack() {
+        return REG_INCOMPLETE + DELIMITER + "Enter all fields please";
+    }
+
+    public static String getRegDeniedByNotUniqueLoginOrNickname() {
+        return REG_NOT_UNIQUE + DELIMITER + "Please enter a different password or nickname";
+    }
+
+    public static String getRegAccept(String login, String password, String nickname) {
+        return REG_ACCEPT + DELIMITER + login + DELIMITER + password + DELIMITER + nickname;
     }
 
     public static String getAuthRequest(String login, String password) {
@@ -58,11 +71,4 @@ public class Library {
         return USER_LIST + DELIMITER + users;
     }
 
-    public static String getRegDeniedByInfoLack() {
-        return REG_INCOMPLETE + DELIMITER + "Enter all fields please";
-    }
-
-    public static String getRegDeniedByNotUniqueLoginOrNickname() {
-        return REG_NOT_UNIQUE + DELIMITER + "Please enter a different password or nickname";
-    }
 }

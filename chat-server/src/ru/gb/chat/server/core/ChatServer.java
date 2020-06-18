@@ -148,25 +148,32 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                     }
                 }
                 sendToAllAuthorizedClients(Library.getUserList(getUsers()));
-//            case Library.REG_REQUEST:
-//                if (arr.length != 4) {
-//                    newClient.msgFormatError(msg);
-//                    return;
-//                }
-//                login = arr[1];
-//                password = arr[2];
-//                nickname = arr[3];
-//                if (login == null || password == null || nickname == null) {
-//                    newClient.regFailByInfoLack();
-//                    return;
-//                } else {
-//                    for (int i = 0; i < SqlClient.getSize(); i++) {
-//                        if (login.equals(SqlClient.getLogin(i)) ||
-//                                nickname.equals(SqlClient.getNickname(i))) {
-//                            newClient.regFailByNotUniqueLoginOrNickname();
-//                        }
-//                    }
-//                }
+                break;
+            case Library.REG_REQUEST:
+                if (arr.length != 4) {
+                    newClient.msgFormatError(msg);
+                    return;
+                }
+                login = arr[1];
+                password = arr[2];
+                nickname = arr[3];
+                if (login == null || password == null || nickname == null) {
+                    newClient.regFailByInfoLack();
+                    return;
+                } else {
+                    for (int i = 0; i < SqlClient.getSize(); i++) {
+                        if (login.equals(SqlClient.getLogin(i)) ||
+                                nickname.equals(SqlClient.getNickname(i))) {
+                            newClient.regFailByNotUniqueLoginOrNickname();
+                        } else {
+                            newClient.regAccept(login, password, nickname);
+                            SqlClient.addUser(login, password, nickname);
+                        }
+                    }
+                }
+                break;
+            default:
+                newClient.sendMessage(Library.getMsgFormatError(msg));
         }
     }
 

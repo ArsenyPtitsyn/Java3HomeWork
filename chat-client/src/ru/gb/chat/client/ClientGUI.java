@@ -40,7 +40,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private boolean shownIoErrors = false;
     private final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss: ");
 
-    private SocketThread socketThread;
+    SocketThread socketThread;
     private static final String WINDOW_TITLE = "Chat";
 
     private RegistrationWindow registrationWindow;
@@ -109,6 +109,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         } else if (src == btnRegistration) {
             registrationWindow = new RegistrationWindow(this);
             registrationWindow.setVisible(true);
+            setVisible(false);
         } else {
             throw new RuntimeException("Unknown source: " + src);
         }
@@ -192,12 +193,20 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     @Override
     public void onSocketReady(SocketThread thread, Socket socket) {
-        putLog("Ready");
-        panelBottom.setVisible(true);
-        panelTop.setVisible(false);
-        String loginAuth = tfLogin.getText();
-        String passwordAuth = new String(tfPassword.getPassword());
-        thread.sendMessage(Library.getAuthRequest(loginAuth, passwordAuth));
+        if (registrationWindow == null) {
+            putLog("Ready");
+            panelBottom.setVisible(true);
+            panelTop.setVisible(false);
+            String loginAuth = tfLogin.getText();
+            String passwordAuth = new String(tfPassword.getPassword());
+            thread.sendMessage(Library.getAuthRequest(loginAuth, passwordAuth));
+        }
+        if (registrationWindow != null) {
+            String loginReg = registrationWindow.tfLogin.getText();
+            String PasswordReg = new String(registrationWindow.tfPassword.getPassword());
+            String nicknameReg = registrationWindow.tfNickname.getText();
+            thread.sendMessage(Library.getRegRequest(loginReg, PasswordReg, nicknameReg));
+        }
     }
 
     @Override
@@ -209,6 +218,10 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         String[] arr = msg.split(Library.DELIMITER);
         String msgType = arr[0];
         switch (msgType) {
+            case Library.REG_ACCEPT:
+                setVisible(true);
+                setTitle(WINDOW_TITLE + ": " + arr[1]);
+                break;
             case Library.AUTH_ACCEPT:
                 setTitle(WINDOW_TITLE + ": " + arr[1]);
                 break;

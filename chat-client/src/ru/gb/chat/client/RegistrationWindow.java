@@ -1,5 +1,7 @@
 package ru.gb.chat.client;
 
+import ru.gb.chat.library.Library;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -72,5 +74,6 @@ public class RegistrationWindow extends JFrame implements ActionListener {
 
     private void sendDataOnServer() {
         clientGUI.connect();
+        clientGUI.setVisible(true);
     }
 }
