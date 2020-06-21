@@ -43,7 +43,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     SocketThread socketThread;
     private static final String WINDOW_TITLE = "Chat";
 
-    private RegistrationWindow registrationWindow;
+    RegistrationWindow registrationWindow;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -114,7 +114,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         }
     }
 
-    void connect() {
+   void connect() {
         try {
             Socket socket = new Socket(tfIPAddress.getText(), Integer.parseInt(tfPort.getText()));
             socketThread = new SocketThread("Client", this, socket);
@@ -209,10 +209,6 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         String[] arr = msg.split(Library.DELIMITER);
         String msgType = arr[0];
         switch (msgType) {
-            case Library.REG_ACCEPT:
-                setVisible(true);
-                setTitle(WINDOW_TITLE + ": " + arr[1]);
-                break;
             case Library.AUTH_ACCEPT:
                 setTitle(WINDOW_TITLE + ": " + arr[1]);
                 break;
