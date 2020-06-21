@@ -157,18 +157,13 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                 login = arr[1];
                 password = arr[2];
                 nickname = arr[3];
-                if (login == null || password == null || nickname == null) {
-                    newClient.regFailByInfoLack();
-                    return;
-                } else {
-                    for (int i = 0; i < SqlClient.getSize(); i++) {
-                        if (login.equals(SqlClient.getLogin(i)) ||
-                                nickname.equals(SqlClient.getNickname(i))) {
-                            newClient.regFailByNotUniqueLoginOrNickname();
-                        } else {
-                            newClient.regAccept(login, password, nickname);
-                            SqlClient.addUser(login, password, nickname);
-                        }
+                for (int i = 0; i < SqlClient.getSize(); i++) {
+                    if (login.equals(SqlClient.getLogin(i)) ||
+                            nickname.equals(SqlClient.getNickname(i))) {
+                        newClient.regFailByNotUniqueLoginOrNickname();
+                    } else {
+                        SqlClient.addUser(login, password, nickname);
+                        newClient.regAccept(login, password, nickname);
                     }
                 }
                 break;

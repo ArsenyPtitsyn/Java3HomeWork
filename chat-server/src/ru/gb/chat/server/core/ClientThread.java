@@ -49,19 +49,12 @@ public class ClientThread extends SocketThread {
         close();
     }
 
-    void regFailByInfoLack() {
-        sendMessage(Library.getRegDeniedByInfoLack());
-        close();
-    }
-
     void regFailByNotUniqueLoginOrNickname() {
         sendMessage(Library.getRegDeniedByNotUniqueLoginOrNickname());
         close();
     }
 
     void regAccept(String login, String password, String nickname) {
-        isAuthorized = true;
-        this.nickname = nickname;
         sendMessage(Library.getRegAccept(login, password, nickname));
     }
 }

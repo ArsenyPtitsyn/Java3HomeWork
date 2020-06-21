@@ -109,7 +109,6 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         } else if (src == btnRegistration) {
             registrationWindow = new RegistrationWindow(this);
             registrationWindow.setVisible(true);
-            setVisible(false);
         } else {
             throw new RuntimeException("Unknown source: " + src);
         }
@@ -193,20 +192,12 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     @Override
     public void onSocketReady(SocketThread thread, Socket socket) {
-        if (registrationWindow == null) {
-            putLog("Ready");
-            panelBottom.setVisible(true);
-            panelTop.setVisible(false);
-            String loginAuth = tfLogin.getText();
-            String passwordAuth = new String(tfPassword.getPassword());
-            thread.sendMessage(Library.getAuthRequest(loginAuth, passwordAuth));
-        }
-        if (registrationWindow != null) {
-            String loginReg = registrationWindow.tfLogin.getText();
-            String PasswordReg = new String(registrationWindow.tfPassword.getPassword());
-            String nicknameReg = registrationWindow.tfNickname.getText();
-            thread.sendMessage(Library.getRegRequest(loginReg, PasswordReg, nicknameReg));
-        }
+        putLog("Ready");
+        panelBottom.setVisible(true);
+        panelTop.setVisible(false);
+        String loginAuth = tfLogin.getText();
+        String passwordAuth = new String(tfPassword.getPassword());
+        thread.sendMessage(Library.getAuthRequest(loginAuth, passwordAuth));
     }
 
     @Override

@@ -75,14 +75,12 @@ public class SqlClient {
 
     synchronized static void addUser(String login, String password, String nickname) {
         try {
-            connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement("INSERT INTO users " +
                     "(login, password, nickname) VALUES (?, ?, ?)");
             ps.setString(1, login);
             ps.setString(2, password);
             ps.setString(3, nickname);
             ps.executeUpdate();
-            connection.commit();
             ps.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
