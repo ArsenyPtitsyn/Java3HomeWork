@@ -35,11 +35,11 @@ public class Library {
     }
 
     public static String getRegDeniedByInfoLack() {
-        return REG_INCOMPLETE + DELIMITER + "Enter all fields please";
+        return REG_INCOMPLETE;
     }
 
     public static String getRegDeniedByNotUniqueLoginOrNickname() {
-        return REG_NOT_UNIQUE + DELIMITER + "Please enter a different password or nickname";
+        return REG_NOT_UNIQUE;
     }
 
     public static String getRegAccept(String login, String password, String nickname) {

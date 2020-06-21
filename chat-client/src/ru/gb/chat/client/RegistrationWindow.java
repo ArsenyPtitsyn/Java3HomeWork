@@ -22,7 +22,7 @@ public class RegistrationWindow extends JFrame implements ActionListener {
     final JPasswordField tfPassword = new JPasswordField(12);
 
     final JPanel panelNick = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    final JLabel labelNick = new JLabel("Enter your password: ");
+    final JLabel labelNick = new JLabel("Enter your nickname: ");
     final JTextField tfNickname = new JTextField(10);
 
     final JPanel panelLog = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -38,11 +38,12 @@ public class RegistrationWindow extends JFrame implements ActionListener {
         int posX = (int) registrationWindowBounds.getCenterX() - WIDTH / 2;
         int posY = (int) registrationWindowBounds.getCenterY() - HEIGHT / 2;
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocation(posX, posY);
         setSize(WIDTH, HEIGHT);
         setResizable(false);
         setTitle("Registration in chat");
+        log.setEditable(false);
+        JScrollPane scrollLog = new JScrollPane(log);
         btnSend.addActionListener(this);
 
         panelLogin.add(labelLogin);
@@ -54,7 +55,7 @@ public class RegistrationWindow extends JFrame implements ActionListener {
         panelNick.add(labelNick);
         panelNick.add(tfNickname);
 
-        panelLog.add(log);
+        panelLog.add(scrollLog);
 
         panelSend.add(btnSend);
 
@@ -79,5 +80,15 @@ public class RegistrationWindow extends JFrame implements ActionListener {
 
     private void sendDataOnServer() {
         clientGUI.connect();
+    }
+
+    public void putLog(String msg) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                log.append(msg + "\n");
+                log.setCaretPosition(log.getDocument().getLength());
+            }
+        });
     }
 }

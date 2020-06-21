@@ -1,7 +1,5 @@
 package ru.gb.chat.server.core;
 
-import org.sqlite.SQLiteDataSource;
-
 import java.sql.*;
 
 public class SqlClient {
@@ -22,18 +20,20 @@ public class SqlClient {
     synchronized static void disconnect() {
         try {
             connection.close();
-        } catch (SQLException throwables) {
-            throw new RuntimeException(throwables);
+        } catch (SQLException throwable) {
+            throw new RuntimeException(throwable);
         }
     }
 
     synchronized static int getSize() {
         int count = 0;
         try {
-            ResultSet rs = statement.executeQuery("SELECT login FROM users");
-            count = rs.getFetchSize();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            ResultSet rs = statement.executeQuery("SELECT * FROM users");
+            while (rs.next()) {
+                count++;
+            }
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         return count;
     }
@@ -46,29 +46,29 @@ public class SqlClient {
             if (rs.next()) {
                 return rs.getString("nickname");
             }
-        } catch (SQLException throwables) {
-            throw new RuntimeException(throwables);
+        } catch (SQLException throwable) {
+            throw new RuntimeException(throwable);
         }
         return null;
     }
 
     synchronized static String getNickname(int id) {
         try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT nickname FROM users WHERE id = '%d", id));
+            ResultSet rs = statement.executeQuery(String.format("SELECT nickname FROM users WHERE id = %d", id));
             return rs.getString("nickname");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         return null;
     }
 
     synchronized static String getLogin(int id) {
         try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT login FROM users WHERE id = '%d'",
+            ResultSet rs = statement.executeQuery(String.format("SELECT login FROM users WHERE id = %d",
                 id));
             return rs.getString("login");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         return null;
     }
@@ -82,8 +82,8 @@ public class SqlClient {
             ps.setString(3, nickname);
             ps.executeUpdate();
             ps.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
     }
 }

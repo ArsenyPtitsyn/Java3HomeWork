@@ -49,6 +49,11 @@ public class ClientThread extends SocketThread {
         close();
     }
 
+    void regFailByInfoLack() {
+        sendMessage(Library.getRegDeniedByInfoLack());
+        close();
+    }
+
     void regFailByNotUniqueLoginOrNickname() {
         sendMessage(Library.getRegDeniedByNotUniqueLoginOrNickname());
         close();

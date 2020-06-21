@@ -151,7 +151,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                 break;
             case Library.REG_REQUEST:
                 if (arr.length != 4) {
-                    newClient.msgFormatError(msg);
+                    newClient.regFailByInfoLack();
                     return;
                 }
                 login = arr[1];

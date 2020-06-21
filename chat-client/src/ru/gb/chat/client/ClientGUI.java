@@ -43,7 +43,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     SocketThread socketThread;
     private static final String WINDOW_TITLE = "Chat";
 
-    RegistrationWindow registrationWindow;
+    private RegistrationWindow registrationWindow;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -217,6 +217,17 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         String[] arr = msg.split(Library.DELIMITER);
         String msgType = arr[0];
         switch (msgType) {
+            case Library.REG_INCOMPLETE:
+                registrationWindow.putLog("Enter all fields please!");
+                break;
+            case Library.REG_NOT_UNIQUE:
+                registrationWindow.putLog("Such login and password are already exist! \n " +
+                        "Enter another login and password");
+                break;
+            case Library.REG_ACCEPT:
+                putLog("You have successfully registered!");
+                registrationWindow.setVisible(false);
+                break;
             case Library.AUTH_ACCEPT:
                 setTitle(WINDOW_TITLE + ": " + arr[1]);
                 break;
