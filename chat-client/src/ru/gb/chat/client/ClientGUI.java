@@ -192,12 +192,20 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     @Override
     public void onSocketReady(SocketThread thread, Socket socket) {
-        putLog("Ready");
-        panelBottom.setVisible(true);
-        panelTop.setVisible(false);
-        String loginAuth = tfLogin.getText();
-        String passwordAuth = new String(tfPassword.getPassword());
-        thread.sendMessage(Library.getAuthRequest(loginAuth, passwordAuth));
+        if (btnLogin.isFocusOwner()) {
+            putLog("Ready");
+            panelBottom.setVisible(true);
+            panelTop.setVisible(false);
+            String loginAuth = tfLogin.getText();
+            String passwordAuth = new String(tfPassword.getPassword());
+            thread.sendMessage(Library.getAuthRequest(loginAuth, passwordAuth));
+        }
+        if (registrationWindow != null && registrationWindow.btnSend.isFocusOwner()) {
+            String loginReg = registrationWindow.tfLogin.getText();
+            String passwordReg = new String(registrationWindow.tfPassword.getPassword());
+            String nicknameReg = registrationWindow.tfNickname.getText();
+            thread.sendMessage(Library.getRegRequest(loginReg, passwordReg, nicknameReg));
+        }
     }
 
     @Override
