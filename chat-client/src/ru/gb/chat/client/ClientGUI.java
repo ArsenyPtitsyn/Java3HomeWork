@@ -230,7 +230,6 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
                 break;
             case Library.AUTH_ACCEPT:
                 setTitle(WINDOW_TITLE + ": " + arr[1]);
-                
                 break;
             case Library.AUTH_DENIED:
                 putLog("Wrong login/password");
