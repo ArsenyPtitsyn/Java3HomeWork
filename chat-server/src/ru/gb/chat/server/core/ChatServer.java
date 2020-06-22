@@ -162,11 +162,10 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                             nickname.equals(SqlClient.getNicknames().get(i))) {
                         newClient.regFailByNotUniqueLoginOrNickname();
                         return;
-                    } else {
-                        SqlClient.addUser(login, password, nickname);
-                        newClient.regAccept(login, password, nickname);
                     }
                 }
+                SqlClient.addUser(login, password, nickname);
+                newClient.regAccept(login, password, nickname);
                 break;
             default:
                 newClient.sendMessage(Library.getMsgFormatError(msg));

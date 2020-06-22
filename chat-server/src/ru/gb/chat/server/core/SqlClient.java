@@ -91,7 +91,6 @@ public class SqlClient {
             ps.setString(2, password);
             ps.setString(3, nickname);
             ps.executeUpdate();
-            ps.clearBatch();
 
             connection.commit();
         } catch (SQLException throwable) {
