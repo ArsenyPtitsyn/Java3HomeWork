@@ -62,10 +62,10 @@ public class SqlClient {
         return null;
     }
 
-    synchronized static String getLogin(int id) {
+    synchronized static String getLogin(int a) {
         try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT login FROM users WHERE id = %d",
-                id));
+            ResultSet rs = statement.executeQuery(String.format("SELECT * FROM users WHERE id = %d",
+                    a));
             return rs.getString("login");
         } catch (SQLException throwable) {
             throwable.printStackTrace();
