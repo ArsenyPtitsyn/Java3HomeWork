@@ -150,17 +150,18 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                 sendToAllAuthorizedClients(Library.getUserList(getUsers()));
                 break;
             case Library.REG_REQUEST:
-                if (arr.length != 4) {
-                    newClient.regFailByInfoLack();
-                    return;
-                }
                 login = arr[1];
                 password = arr[2];
                 nickname = arr[3];
-                for (int i = 1; i <= SqlClient.getSize(); i++) {
-                    if (login.equals(SqlClient.getLogin(i)) ||
-                            nickname.equals(SqlClient.getNickname(i))) {
+                if (login.equals("") || password.equals("") || nickname.equals("")) {
+                    newClient.regFailByInfoLack();
+                    return;
+                }
+                for (int i = 0; i < SqlClient.getSize(); i++) {
+                    if (login.equals(SqlClient.getLogins().get(i)) ||
+                            nickname.equals(SqlClient.getNicknames().get(i))) {
                         newClient.regFailByNotUniqueLoginOrNickname();
+                        return;
                     } else {
                         SqlClient.addUser(login, password, nickname);
                         newClient.regAccept(login, password, nickname);

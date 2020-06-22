@@ -1,6 +1,7 @@
 package ru.gb.chat.server.core;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class SqlClient {
 
@@ -52,21 +53,28 @@ public class SqlClient {
         return null;
     }
 
-    synchronized static String getNickname(int a) {
+    synchronized static ArrayList<String> getNicknames() {
+        ArrayList<String> nicknames = new ArrayList<>();
         try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT * FROM users WHERE id = '%d'", a));
-            return rs.getString("nickname");
+            ResultSet rs = statement.executeQuery(String.format("SELECT nickname FROM users"));
+            while (rs.next()) {
+                nicknames.add(rs.getString("nickname"));
+            }
+            return nicknames;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
         return null;
     }
 
-    synchronized static String getLogin(int a) {
+    synchronized static ArrayList<String> getLogins() {
+        ArrayList<String> logins = new ArrayList<>();
         try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT * FROM users WHERE id = %d",
-                    a));
-            return rs.getString("login");
+            ResultSet rs = statement.executeQuery(String.format("SELECT login FROM users"));
+            while (rs.next()) {
+                logins.add(rs.getString("login"));
+            }
+            return logins;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
@@ -75,13 +83,17 @@ public class SqlClient {
 
     synchronized static void addUser(String login, String password, String nickname) {
         try {
+            connection.setAutoCommit(false);
+
             PreparedStatement ps = connection.prepareStatement("INSERT INTO users " +
                     "(login, password, nickname) VALUES (?, ?, ?)");
             ps.setString(1, login);
             ps.setString(2, password);
             ps.setString(3, nickname);
             ps.executeUpdate();
-            ps.close();
+            ps.clearBatch();
+
+            connection.commit();
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }

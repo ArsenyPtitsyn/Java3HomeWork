@@ -225,8 +225,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
                         "Enter another login and password");
                 break;
             case Library.REG_ACCEPT:
-                putLog("You have successfully registered!");
                 registrationWindow.setVisible(false);
+                putLog("You have successfully registered!");
                 break;
             case Library.AUTH_ACCEPT:
                 setTitle(WINDOW_TITLE + ": " + arr[1]);
