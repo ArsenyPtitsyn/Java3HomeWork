@@ -221,7 +221,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
                 registrationWindow.putLog("Enter all fields please!");
                 break;
             case Library.REG_NOT_UNIQUE:
-                registrationWindow.putLog("Such login and password are already exist! \n " +
+                registrationWindow.putLog("Such login and password \n are already exist! \n " +
                         "Enter another login and password");
                 break;
             case Library.REG_ACCEPT:

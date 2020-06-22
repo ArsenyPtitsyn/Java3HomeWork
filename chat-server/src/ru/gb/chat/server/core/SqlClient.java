@@ -52,9 +52,9 @@ public class SqlClient {
         return null;
     }
 
-    synchronized static String getNickname(int id) {
+    synchronized static String getNickname(int a) {
         try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT nickname FROM users WHERE id = %d", id));
+            ResultSet rs = statement.executeQuery(String.format("SELECT * FROM users WHERE id = '%d'", a));
             return rs.getString("nickname");
         } catch (SQLException throwable) {
             throwable.printStackTrace();
