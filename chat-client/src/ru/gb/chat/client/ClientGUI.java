@@ -230,6 +230,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
                 break;
             case Library.AUTH_ACCEPT:
                 setTitle(WINDOW_TITLE + ": " + arr[1]);
+                
                 break;
             case Library.AUTH_DENIED:
                 putLog("Wrong login/password");
@@ -240,6 +241,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
                 break;
             case Library.TYPE_BROADCAST:
                 putLog(DATE_FORMAT.format(Long.parseLong(arr[1])) + ": " + arr[2] + ": " + arr[3] + "\n");
+                wrtMsgToLogFile(arr[3], arr[2]);
                 break;
             case Library.USER_LIST:
                 String users = msg.substring(Library.USER_LIST.length() + Library.DELIMITER.length());
