@@ -30,4 +30,4 @@ out/
 hs_err_pid*
 
 # Database files
-*. db
+chat-server/*.db
