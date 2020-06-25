@@ -1,4 +1,4 @@
-package race;
+package lesson5;
 
 public class Tunnel extends Stage {
     public Tunnel() {

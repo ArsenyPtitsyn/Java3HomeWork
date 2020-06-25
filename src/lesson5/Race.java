@@ -1,4 +1,4 @@
-package race;
+package lesson5;
 
 import java.util.ArrayList;
 import java.util.Arrays;

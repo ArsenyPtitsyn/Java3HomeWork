@@ -1,4 +1,4 @@
-package race;
+package lesson5;
 
 public abstract class Stage {
     protected int length;

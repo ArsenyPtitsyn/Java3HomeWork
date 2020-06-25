@@ -1,4 +1,4 @@
-package race;
+package lesson5;
 
 public class MainClass {
     public static final int CARS_COUNT = 4;

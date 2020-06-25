@@ -1,4 +1,4 @@
-package race;
+package lesson5;
 
 public class Road extends Stage {
     public Road(int length) {
