@@ -20,6 +20,7 @@ public class Car implements Runnable {
         CARS_COUNT++;
         this.name = "Участник #" + CARS_COUNT;
     }
+
     @Override
     public void run() {
         try {
