@@ -1,8 +1,8 @@
 package lesson7;
 
-import testing.AfterSuite;
-import testing.BeforeSuite;
-import testing.Test;
+import lesson7.testing.AfterSuite;
+import lesson7.testing.BeforeSuite;
+import lesson7.testing.Test;
 
 public class MainTestClass {
 
@@ -40,4 +40,9 @@ public class MainTestClass {
     public void beforeSuiteMethod() {
         System.out.println("BeforeSuite method");
     }
+
+//    @BeforeSuite
+//    public void beforeSuiteMethod_2() {
+//        System.out.println("BeforeSuite method");
+//    }
 }

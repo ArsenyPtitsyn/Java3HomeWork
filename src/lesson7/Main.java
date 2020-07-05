@@ -1,6 +1,6 @@
 package lesson7;
 
-import testing.TestsHandler;
+import lesson7.testing.TestsHandler;
 
 public class Main {
     public static void main(String[] args) {
