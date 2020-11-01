@@ -21,8 +21,8 @@ public class SqlClient {
     synchronized static void disconnect() {
         try {
             connection.close();
-        } catch (SQLException throwable) {
-            throw new RuntimeException(throwable);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -33,8 +33,8 @@ public class SqlClient {
             while (rs.next()) {
                 count++;
             }
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return count;
     }
@@ -47,8 +47,8 @@ public class SqlClient {
             if (rs.next()) {
                 return rs.getString("nickname");
             }
-        } catch (SQLException throwable) {
-            throw new RuntimeException(throwable);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -56,29 +56,27 @@ public class SqlClient {
     synchronized static ArrayList<String> getNicknames() {
         ArrayList<String> nicknames = new ArrayList<>();
         try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT nickname FROM users"));
+            ResultSet rs = statement.executeQuery("SELECT nickname FROM users");
             while (rs.next()) {
                 nicknames.add(rs.getString("nickname"));
             }
             return nicknames;
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     synchronized static ArrayList<String> getLogins() {
         ArrayList<String> logins = new ArrayList<>();
         try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT login FROM users"));
+            ResultSet rs = statement.executeQuery("SELECT login FROM users");
             while (rs.next()) {
                 logins.add(rs.getString("login"));
             }
             return logins;
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     synchronized static void addUser(String login, String password, String nickname) {
@@ -93,8 +91,8 @@ public class SqlClient {
             ps.executeUpdate();
 
             connection.commit();
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -27,7 +27,6 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private final JCheckBox cbAlwaysOnTop = new JCheckBox("Always on top");
     private final JTextField tfLogin = new JTextField();
     private final JPasswordField tfPassword = new JPasswordField();
-    private final JPanel panelRightBottom = new JPanel(new GridLayout(1, 2));
     private final JButton btnRegistration = new JButton("<html><b>Registration</b></html>");
     private final JButton btnLogin = new JButton("Login");
 
@@ -46,12 +45,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private RegistrationWindow registrationWindow;
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ClientGUI();
-            }
-        });
+        SwingUtilities.invokeLater(ClientGUI::new);
     }
 
     private ClientGUI() {
@@ -76,6 +70,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         panelTop.add(cbAlwaysOnTop);
         panelTop.add(tfLogin);
         panelTop.add(tfPassword);
+        JPanel panelRightBottom = new JPanel(new GridLayout(1, 2));
         panelTop.add(panelRightBottom);
 
         panelRightBottom.add(btnLogin);
@@ -145,12 +140,9 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     private void putLog(String msg) {
         if ("".equals(msg)) return;
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                log.append(msg + "\n");
-                log.setCaretPosition(log.getDocument().getLength());
-            }
+        SwingUtilities.invokeLater(() -> {
+            log.append(msg + "\n");
+            log.setCaretPosition(log.getDocument().getLength());
         });
     }
 

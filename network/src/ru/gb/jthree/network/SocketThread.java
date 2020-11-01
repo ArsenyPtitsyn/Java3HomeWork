@@ -37,15 +37,13 @@ public class SocketThread extends Thread{
         }
     }
 
-    public boolean sendMessage(String msg) {
+    public void sendMessage(String msg) {
         try {
             out.writeUTF(msg);
             out.flush();
-            return true;
         } catch (IOException e) {
             listener.onSocketException(this, e);
             close();
-            return false;
         }
     }
 

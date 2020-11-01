@@ -10,12 +10,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 import java.util.Vector;
 
 public class ChatServer implements ServerSocketThreadListener, SocketThreadListener {
 
     ChatServerListener listener;
-    private Vector<SocketThread> clients = new Vector<>();
+    private final Vector<SocketThread> clients = new Vector<>();
 
     public ChatServer(ChatServerListener listener) {
         this.listener = listener;
@@ -60,8 +61,8 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     public void onServerStop(ServerSocketThread thread) {
         putLog("Server stopped");
         SqlClient.disconnect();
-        for (int i = 0; i < clients.size(); i++) {
-            clients.get(i).close();
+        for (SocketThread client : clients) {
+            client.close();
         }
     }
 
@@ -158,8 +159,8 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                     return;
                 }
                 for (int i = 0; i < SqlClient.getSize(); i++) {
-                    if (login.equals(SqlClient.getLogins().get(i)) ||
-                            nickname.equals(SqlClient.getNicknames().get(i))) {
+                    if (login.equals(Objects.requireNonNull(SqlClient.getLogins()).get(i)) ||
+                            nickname.equals(Objects.requireNonNull(SqlClient.getNicknames()).get(i))) {
                         newClient.regFailByNotUniqueLoginOrNickname();
                         return;
                     }
@@ -175,19 +176,17 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     private void handleAuthMessage(ClientThread client, String msg) {
         String[] arr = msg.split(Library.DELIMITER);
         String msgType = arr[0];
-        switch (msgType) {
-            case Library.CLIENT_MSG_BROADCAST:
-                sendToAllAuthorizedClients(Library.getTypeBroadcast(
-                        client.getNickname(), arr[1]));
-                break;
-            default:
-                client.sendMessage(Library.getMsgFormatError(msg));
+        if (Library.CLIENT_MSG_BROADCAST.equals(msgType)) {
+            sendToAllAuthorizedClients(Library.getTypeBroadcast(
+                    client.getNickname(), arr[1]));
+        } else {
+            client.sendMessage(Library.getMsgFormatError(msg));
         }
     }
 
     private void sendToAllAuthorizedClients(String msg) {
-        for (int i = 0; i < clients.size(); i++) {
-            ClientThread client = (ClientThread) clients.get(i);
+        for (SocketThread socketThread : clients) {
+            ClientThread client = (ClientThread) socketThread;
             if (!client.isAuthorized()) continue;
             client.sendMessage(msg);
         }
@@ -201,8 +200,8 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
 
     private synchronized String getUsers() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < clients.size(); i++) {
-            ClientThread client = (ClientThread) clients.get(i);
+        for (SocketThread socketThread : clients) {
+            ClientThread client = (ClientThread) socketThread;
             if (!client.isAuthorized()) continue;
             sb.append(client.getNickname()).append(Library.DELIMITER);
         }
@@ -210,8 +209,8 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     }
 
     private synchronized ClientThread findClientByNickname(String nickname) {
-        for (int i = 0; i < clients.size(); i++) {
-            ClientThread client = (ClientThread) clients.get(i);
+        for (SocketThread socketThread : clients) {
+            ClientThread client = (ClientThread) socketThread;
             if (!client.isAuthorized()) continue;
             if (client.getNickname().equals(nickname))
                 return client;

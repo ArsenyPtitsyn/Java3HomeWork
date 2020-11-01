@@ -11,8 +11,6 @@ public class RegistrationWindow extends JFrame implements ActionListener {
     private static final int HEIGHT = 250;
     ClientGUI clientGUI;
 
-    private final JPanel panelMain = new JPanel(new GridLayout(5, 1));
-
     final JPanel panelLogin = new JPanel(new FlowLayout(FlowLayout.CENTER));
     final JLabel labelLogin = new JLabel("Enter your login: ");
     final JTextField tfLogin = new JTextField(10);
@@ -59,6 +57,7 @@ public class RegistrationWindow extends JFrame implements ActionListener {
 
         panelSend.add(btnSend);
 
+        JPanel panelMain = new JPanel(new GridLayout(5, 1));
         panelMain.add(panelLogin);
         panelMain.add(panelPassword);
         panelMain.add(panelNick);
@@ -83,12 +82,9 @@ public class RegistrationWindow extends JFrame implements ActionListener {
     }
 
     public void putLog(String msg) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                log.append(msg + "\n");
-                log.setCaretPosition(log.getDocument().getLength());
-            }
+        SwingUtilities.invokeLater(() -> {
+            log.append(msg + "\n");
+            log.setCaretPosition(log.getDocument().getLength());
         });
     }
 }
